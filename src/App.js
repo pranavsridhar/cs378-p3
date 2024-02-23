@@ -100,13 +100,17 @@ function App() {
     };
   
     const remItem = (item) => {
-      const newCart = cart.filter(cartItem => cartItem.id !== item.id);
-      setCart(newCart);
-      if(item.count > 0)
-      {
-        item.count--;
+      const index = cart.findIndex(cartItem => cartItem.id === item.id);
+      if (index !== -1) {
+        const newCart = [...cart];
+        newCart.splice(index, 1);
+        setCart(newCart);
+        if(item.count > 0) {
+          item.count--;
+        }
       }
     };
+    
 
     const updateTotal = () => {
       return cart.reduce((total, item) => total + item.price, 0);
